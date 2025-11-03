@@ -1,13 +1,19 @@
 spring:
   datasource:
-    url: 
-    username:               # your master username
-    password:      # your master password
+    url: jdbc:mysql://db-petfeast..com/pet_supplies_db
+
+    username: 
+    password:
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     show-sql: true
-    database-platform: org.hibernate.dialect.MySQL8Dialect
 
+  sql:
+    init:
+      mode: never
+
+server:
+  port: 8080

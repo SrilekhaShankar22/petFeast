@@ -14,31 +14,35 @@ public class ProductRepository {
         this.jdbc = jdbc;
     }
 
+
     public List<ProductDto> findAll() {
-        String sql = "SELECT id, name, category, description, price, stock_quantity, image_url FROM products";
+        String sql = "SELECT product_id, name, category, type, price, stock, description, created_at FROM products";
         return jdbc.query(sql, (rs, rowNum) ->
                 new ProductDto(
-                        rs.getInt("id"),
+                        rs.getInt("product_id"),
                         rs.getString("name"),
                         rs.getString("category"),
-                        rs.getString("description"),
+                        rs.getString("type"),
                         rs.getDouble("price"),
-                        rs.getInt("stock_quantity"),
-                        rs.getString("image_url")
+                        rs.getInt("stock"),
+                        rs.getString("description"),
+                        rs.getTimestamp("created_at")
                 ));
     }
 
+
     public List<ProductDto> findByCategory(String category) {
-        String sql = "SELECT * FROM products WHERE category = ?";
+        String sql = "SELECT product_id, name, category, type, price, stock, description, created_at FROM products WHERE category = ?";
         return jdbc.query(sql, new Object[]{category}, (rs, rowNum) ->
                 new ProductDto(
-                        rs.getInt("id"),
+                        rs.getInt("product_id"),
                         rs.getString("name"),
                         rs.getString("category"),
-                        rs.getString("description"),
+                        rs.getString("type"),
                         rs.getDouble("price"),
-                        rs.getInt("stock_quantity"),
-                        rs.getString("image_url")
+                        rs.getInt("stock"),
+                        rs.getString("description"),
+                        rs.getTimestamp("created_at")
                 ));
     }
 }
